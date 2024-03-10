@@ -1,15 +1,14 @@
 require('dotenv').config();
-
-import {Express} from "express";
-import {Connection} from "mysql2/promise";
-import {initDataBase} from "./Server/services/db";
-import {initServer} from "./Server/services/server";
-import ShopAPI from "./Shop.API";
-import ShopAdmin from "./Shop.Admin";
+import express, { Express } from "express";
+import { Connection } from "mysql2/promise";
+import { initDataBase } from "./Server/services/db";
+import { initServer } from "./Server/services/server";
+import Shop_api from "./Shop_api";
+import Shop_admin from "./Shop_admin";
+import {adminProductsRouter} from "./Shop_admin/controllers/products.controllers";
 
 export let server: Express;
 export let connection: Connection | null;
-
 
 async function launchApplication() {
     server = initServer();
@@ -19,13 +18,15 @@ async function launchApplication() {
 }
 
 function initRouter() {
-    const shopAPI = ShopAPI(connection);
-    const shopAdmin = ShopAdmin();
+    const shopApi = Shop_api(connection!);
+    server.use("/api", shopApi);
+
+    const shopAdmin = Shop_admin();
     server.use("/admin", shopAdmin);
-    server.use("/api", shopAPI);
+
     server.use("/", (req, res) => {
         res.send("React App");
-    })
+    });
 }
 
 launchApplication();

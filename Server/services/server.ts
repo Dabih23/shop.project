@@ -1,18 +1,17 @@
 import express, { Express } from "express";
 
-
 const host = process.env.LOCAL_HOST;
 const port = Number(process.env.LOCAL_PORT);
 
 export function initServer(): Express {
-  const app = express();
+    const app = express();
 
-  const jsonMiddleware = express.json();
-  app.use(jsonMiddleware);
+    const jsonMiddleware = express.json();
+    app.use(jsonMiddleware);
 
-  app.listen(port, host, () => {
-    console.log(`Server running on port ${port}`);
-  });
+    app.listen(port, host!, () => {
+        console.log(`Server running on port ${port} and host ${host}`);
+    });
 
-  return app;
+    return app;
 }

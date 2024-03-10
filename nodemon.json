@@ -1,10 +1,9 @@
 {
-  "watch": ["src"],
-  "ext": "ts,json,ejs,css",
+  "ext": "ts,json, ejs, css",
   "exec": "ts-node ./index.ts",
   "paths": {
     "@Shared/*": [
-      "Shared/*"
+      "./Shared/*"
     ]
   }
 }
